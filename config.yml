@@ -1,0 +1,19 @@
+# TODO:
+# add auth (token | login-password), optional app timeout
+apps_to_check:
+  google:
+    url: https://google.com
+    method: GET
+    params: null # url encoded params
+    data: null   # payload of post request
+    json: null
+    headers: null
+    expected_status_code: 200
+    timeout: null
+  russian_cheburashka:
+    url: https://meduza.io
+    method: GET
+    expected_status_code: 200
+    timeout: 2
+default_timeout: 1
+pushgateway: 'localhost:9091'
