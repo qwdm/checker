@@ -1,3 +1,5 @@
+import os
+import sys
 import yaml
 import requests
 import datetime
@@ -41,17 +43,20 @@ def main(conf: dict):
         }
         results.append(result)
 
-        print(result)  # TODO send to graphana
+        print(result, file=sys.stderr)
 
-    prometheus(conf['pushgateway'], results)
+    try:
+        prometheus(conf['pushgateway'], results)
+    except Exception as e:
+        print(e, file=sys.stderr)
+
 
 
 if __name__ == "__main__":
     with open('config.yml') as f:
         conf = yaml.load(f, yaml.Loader)
+    
+    conf['pushgateway'] = os.environ.get('pushgateway') or conf['pushgateway']
+    print(conf['pushgateway'], file=sys.stderr)
 
     main(conf)
-    
-
-
-
